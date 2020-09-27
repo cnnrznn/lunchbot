@@ -5,18 +5,17 @@ Lunchbot is a slack app for monitoring channels and setting user status based on
 ## Usage
 
 ```bash
-ofl [minutes]
-lunch [minutes]
+ofl
+# or
+lunch
 ```
 
-Set your status as away for the provided minutes.
-It defaults to 60.
+Set your status as "Out for lunch" for 60 minutes.
 
 ```bash
-coffee [minutes]
-ofc [minutes]
+coffee
+# or
+ofc
 ```
 
-Sets you status as away for the provided minutes
-It defaults to 30.
-```
+Sets you status as "Out for coffee" for 30 minutes.

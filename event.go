@@ -30,7 +30,7 @@ type Profile struct {
 }
 
 type TokenFile struct {
-	Token string `json:"token"`
+	Token string `json:"access_token"`
 }
 
 func EventHandler(w http.ResponseWriter, req *http.Request) {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -10,6 +11,7 @@ import (
 
 type Token struct {
 	AuthedUser AuthedUser `json:"authed_user"`
+	Error      string     `json:"error"`
 }
 
 type AuthedUser struct {
@@ -19,6 +21,8 @@ type AuthedUser struct {
 
 func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query()["code"][0]
+
+	fmt.Printf("Code is %v\n", code)
 
 	payload := url.Values{}
 	payload.Set("code", code)
@@ -32,6 +36,15 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 
 	var token Token
 	json.NewDecoder(resp.Body).Decode(&token)
+
+	if len(token.Error) > 0 {
+		fmt.Println(token.Error)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(token.Error))
+		return
+	}
+
+	fmt.Printf("Token is %f\n", token.AuthedUser)
 
 	f, _ := os.Create(token.AuthedUser.ID)
 	defer f.Close()

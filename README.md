@@ -19,3 +19,12 @@ ofc
 ```
 
 Sets you status as "Out for coffee" for 30 minutes.
+
+## Installation
+
+To install this on a server, you need a few things:
+
+- A certificate and private key file. I got mine from letsencyrpt
+- `PEMFILE`, `KEYFILE` set to the paths of the files
+- `LUNCHBOT_ID`, `LUNCHBOT_SECRET` set to your Slack bot's `client_id` and
+  `client_secret`

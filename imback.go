@@ -19,13 +19,13 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	c.Command = r.FormValue("command")
 
 	if c.Command != "imback" {
-		fmt.Println("Wrong handler")
+		fmt.Printf("Wrong handler, command: %v\n", c.Command)
 		return
 	}
 
 	tokenFile, err := GetUserToken(c.UserID)
 	if err != nil {
-		fmt.Printf("User %v has not authorized lunchbot", c.UserID)
+		fmt.Printf("User %v has not authorized lunchbot\n", c.UserID)
 		return
 	}
 

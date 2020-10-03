@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
@@ -29,10 +28,6 @@ type Profile struct {
 	StatusEmoji      string `json:"status_emoji"`
 }
 
-type TokenFile struct {
-	Token string `json:"access_token"`
-}
-
 func EventHandler(w http.ResponseWriter, req *http.Request) {
 	var o EventObject
 
@@ -46,19 +41,17 @@ func SetStatusAway(o EventObject) {
 	text := strings.ToLower(o.Event.Text)
 	expiration := int(time.Now().Unix())
 
-	var tokenFile TokenFile
+	var tokenFile *TokenFile
 	var status SetStatus
 	body := bytes.NewBuffer([]byte{})
 	var resp *http.Response
 	var data map[string]interface{}
 
-	f, err := ioutil.ReadFile(user)
+	tokenFile, err := GetUserToken(user)
 	if err != nil {
-		fmt.Printf("User %v has not authorized this bot\n", user)
+		fmt.Println(err)
 		return
 	}
-
-	json.NewDecoder(bytes.NewReader(f)).Decode(&tokenFile)
 
 	switch {
 	case strings.EqualFold(text, "lunch"), strings.EqualFold(text, "ofl"):

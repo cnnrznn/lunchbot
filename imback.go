@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -12,6 +13,7 @@ type Command struct {
 }
 
 func ImbackHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("/imback handler")
 	var c Command
 
 	r.ParseForm()
@@ -19,13 +21,13 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	c.Command = r.FormValue("command")
 
 	if c.Command != "/imback" {
-		fmt.Printf("Wrong handler, command: %v\n", c.Command)
+		log.Printf("Wrong handler, command: %v\n", c.Command)
 		return
 	}
 
 	tokenFile, err := GetUserToken(c.UserID)
 	if err != nil {
-		fmt.Printf("User %v has not authorized lunchbot\n", c.UserID)
+		log.Printf("User %v has not authorized lunchbot\n", c.UserID)
 		return
 	}
 
@@ -36,6 +38,7 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	status.Profile.StatusEmoji = ""
 	status.Profile.StatusExpiration = 0
 
+	log.Println("Sending 'clear status' request")
 	client := &http.Client{}
 	req, _ := http.NewRequest("POST", "https://slack.com/api/users.profile.set", body)
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %v", tokenFile.Token))

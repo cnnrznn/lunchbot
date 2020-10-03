@@ -18,7 +18,7 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	c.UserID = r.FormValue("user_id")
 	c.Command = r.FormValue("command")
 
-	if c.Command != "imback" {
+	if c.Command != "/imback" {
 		fmt.Printf("Wrong handler, command: %v\n", c.Command)
 		return
 	}

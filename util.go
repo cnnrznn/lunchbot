@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
+	"log"
 )
 
 type TokenFile struct {
@@ -15,7 +15,7 @@ type TokenFile struct {
 func GetUserToken(user string) (*TokenFile, error) {
 	f, err := ioutil.ReadFile(user)
 	if err != nil {
-		fmt.Printf("User %v has not authorized this bot\n", user)
+		log.Printf("User %v has not authorized this bot\n", user)
 		return nil, errors.New("User not found")
 	}
 

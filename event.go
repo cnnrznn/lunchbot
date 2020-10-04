@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -32,7 +33,7 @@ func EventHandler(w http.ResponseWriter, req *http.Request) {
 	var o EventObject
 
 	json.NewDecoder(req.Body).Decode(&o)
-	fmt.Println(o.Event.Text)
+	log.Println(o.Event.Text)
 	go SetStatusAway(o)
 }
 
@@ -49,7 +50,7 @@ func SetStatusAway(o EventObject) {
 
 	tokenFile, err := GetUserToken(user)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -77,6 +78,5 @@ func SetStatusAway(o EventObject) {
 	resp, _ = client.Do(req)
 
 	json.NewDecoder(resp.Body).Decode(&data)
-	fmt.Println(data)
-	fmt.Println(resp)
+	log.Println(data)
 }

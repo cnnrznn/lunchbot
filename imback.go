@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -43,5 +44,13 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	req, _ := http.NewRequest("POST", "https://slack.com/api/users.profile.set", body)
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %v", tokenFile.Token))
 	req.Header.Set("Content-type", "application/json")
-	client.Do(req)
+	resp, _ := client.Do(req)
+
+	var respBody map[string]interface{}
+	var bs []byte
+	json.NewDecoder(resp.Body).Decode(&respBody)
+
+	log.Println(resp.Status)
+	bs, _ = json.MarshalIndent(respBody, "", "  ")
+	log.Println(string(bs))
 }

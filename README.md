@@ -20,6 +20,12 @@ ofc
 
 Sets you status as "Out for coffee" for 30 minutes.
 
+```bash
+/imback
+```
+
+Clear your set status
+
 ## Installation
 
 To install this on a server, you need a few things:

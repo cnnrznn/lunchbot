@@ -41,6 +41,7 @@ func SetStatusAway(o EventObject) {
 	user := o.Event.User
 	text := strings.ToLower(o.Event.Text)
 	expiration := int(time.Now().Unix())
+	log.Printf("Current unix time: %v\n", expiration)
 
 	var tokenFile *TokenFile
 	var status SetStatus

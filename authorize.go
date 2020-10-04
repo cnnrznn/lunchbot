@@ -44,7 +44,7 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Token is %f\n", token.AuthedUser)
+	log.Printf("Token is %v\n", token.AuthedUser)
 
 	f, _ := os.Create(token.AuthedUser.ID)
 	defer f.Close()

@@ -39,6 +39,8 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	status.Profile.StatusEmoji = ""
 	status.Profile.StatusExpiration = 0
 
+	json.NewEncoder(body).Encode(status)
+
 	log.Println("Sending 'clear status' request")
 	client := &http.Client{}
 	req, _ := http.NewRequest("POST", "https://slack.com/api/users.profile.set", body)

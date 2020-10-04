@@ -78,5 +78,6 @@ func SetStatusAway(e EventObject) {
 	resp, _ = client.Do(req)
 
 	json.NewDecoder(resp.Body).Decode(&data)
-	log.Println(data)
+	bs, _ := json.MarshalIndent(data, "", "  ")
+	log.Println(string(bs))
 }

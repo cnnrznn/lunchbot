@@ -31,7 +31,7 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 
 	client := &http.Client{}
 	req, _ := http.NewRequest("POST", "https://slack.com/api/oauth.v2.access", strings.NewReader(payload.Encode()))
-	req.Header.Set("Content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-type", "application/x-www-form-urlencoded; charset=utf-8")
 	resp, _ := client.Do(req)
 
 	var token Token

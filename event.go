@@ -75,7 +75,7 @@ func SetStatusAway(e EventObject) {
 	client := &http.Client{}
 	req, _ := http.NewRequest("POST", "https://slack.com/api/users.profile.set", body)
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %v", tokenFile.Token))
-	req.Header.Set("Content-type", "application/json")
+	req.Header.Set("Content-type", "application/json; charset=utf-8")
 	resp, _ = client.Do(req)
 
 	json.NewDecoder(resp.Body).Decode(&data)

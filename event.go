@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"time"
 )
 
 type Event struct {
@@ -16,7 +15,8 @@ type Event struct {
 }
 
 type EventObject struct {
-	Event Event `json:"event"`
+	Event     Event `json:"event"`
+	Timestamp int   `json:"event_time"`
 }
 
 type SetStatus struct {
@@ -37,10 +37,10 @@ func EventHandler(w http.ResponseWriter, req *http.Request) {
 	go SetStatusAway(o)
 }
 
-func SetStatusAway(o EventObject) {
-	user := o.Event.User
-	text := strings.ToLower(o.Event.Text)
-	expiration := int(time.Now().Unix())
+func SetStatusAway(e EventObject) {
+	user := e.Event.User
+	text := strings.ToLower(e.Event.Text)
+	expiration := e.Timestamp
 	log.Printf("Current unix time: %v\n", expiration)
 
 	var tokenFile *TokenFile

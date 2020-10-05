@@ -21,6 +21,10 @@ func ImbackHandler(w http.ResponseWriter, r *http.Request) {
 	c.UserID = r.FormValue("user_id")
 	c.Command = r.FormValue("command")
 
+	go SetImback(c)
+}
+
+func SetImback(c Command) {
 	if c.Command != "/imback" {
 		log.Printf("Wrong handler, command: %v\n", c.Command)
 		return
